@@ -1,0 +1,5 @@
+model/
+data/
+requirments.txt
+myenv/
+__pycache__/
