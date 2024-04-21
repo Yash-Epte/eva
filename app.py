@@ -32,7 +32,7 @@ def get_response(query, vectorStore, compression_retriever, cache, llm):
         #st.write(data)
         print(type(data))
 
-    st.write("EVA👾:")
+    st.write("EVA:")
     compressed_docs = compression_retriever.get_relevant_documents(query)
     if compressed_docs:
         combined_content = "\n".join([doc.page_content for doc in compressed_docs])
@@ -57,6 +57,9 @@ def get_response(query, vectorStore, compression_retriever, cache, llm):
             # Create a DataFrame from the dictionary
             df = pd.DataFrame.from_dict(data_dict, orient='index').transpose()
 
+            # Get the student name and store it in a variable
+            student_name = df.loc[0, 'Name '].strip()  # Remove extra whitespace
+
             # Exclude 'Seat Number', 'Name', and 'Result' columns
             df = df.drop(['Seat Number', 'Name ', 'Result '], axis=1)
 
@@ -65,16 +68,16 @@ def get_response(query, vectorStore, compression_retriever, cache, llm):
 
             # Plot the bar chart
             fig_bar = go.Figure(data=[go.Bar(x=df_melted['Subject'], y=df_melted['Marks'])])
-            fig_bar.update_layout(title_text='Overall Perfomance')
+            fig_bar.update_layout(title_text=f'{student_name} - Overall Performance')
             st.plotly_chart(fig_bar)
 
             # Create a pie chart
             fig_pie = go.Figure(data=[go.Pie(labels=df.columns, values=df.iloc[0], hole=0.4)])
-            fig_pie.update_layout(title_text='Subject-wise Marks Distribution')
+            fig_pie.update_layout(title_text=f'{student_name} - Subject-wise Marks Distribution')
             st.plotly_chart(fig_pie)
 
         except Exception as e:
-            st.write(f"Error plotting graph: {e}")
+            st.write(f"Error: {e}")
     else:
         st.write("No matching documents found.")
 
@@ -84,7 +87,7 @@ def main():
         """
         <style>
         .stApp {
-            background: linear-gradient(to right,#020344,#28b8d5,#091970);
+            background: linear-gradient(to right,#020344,#1e6c8e,#28b8d5,#091970);
         }
         </style>
         """,
@@ -118,20 +121,18 @@ def main():
     # Display the image and text side by side
     with st.sidebar:
         container = st.container()
-
         # Load the image
         image = Image.open("/Users/yashepte/Desktop/mongo/female-robot-ai,-futuristic.png")
-
         # Display the image
         with container:
-            st.image(image,width =200)
-
+            st.image(image, width=200)
         # Display the text below the image
         st.markdown("<h1 style='text-align: center'>EVA</h1>", unsafe_allow_html=True)
-
         st.divider()
         st.subheader("Upload Your Marksheet")
-        uploaded_file = st.file_uploader("", type=["csv"])
+
+    # Create a file uploader without a visible label
+        uploaded_file = st.file_uploader("", type=["csv"], label_visibility="hidden")
 
         if uploaded_file is not None:
             # Read the contents of the uploaded file
@@ -139,11 +140,18 @@ def main():
             # Load the CSV data from StringIO using pandas
             df = pd.read_csv(stringio)
 
-            # Preview the uploaded file
-            st.write("### Preview of the uploaded file:")
-            st.write(df)  # Display the DataFrame # Display the DataFrameisplay the DataFrame
-
-    # Main content
+            # Create a preview button
+            if st.button("Preview File"):
+                # Open a container on the main screen
+                with st.container():
+                    st.write("### Preview of the uploaded file:")
+                    st.write(df)
+                    # Add a cancel icon
+                    st.markdown(
+                        "<a href='#' onclick='window.history.back();return false;'>&#9746; Cancel</a>",
+                        unsafe_allow_html=True,
+                    )
+        # Main content
     with st.container():
         if uploaded_file is not None:
             try:

@@ -3,3 +3,8 @@ data/
 requirments.txt
 myenv/
 __pycache__/
+test.py
+testv1.py
+
+.env
+
