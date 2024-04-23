@@ -52,20 +52,18 @@ def get_response(query_input, vectorStore, compression_retriever, cache, llm, mo
                     response_llm = llm(combined_content + "\nHuman: " + query_input + "\nAssistant:")
                     st.write(f"LLM Response: {response_llm}")
                 elif model_choice == "Mistral":
-                    # Set up the Mistral API key
-                    MISTRAL_API_KEY = "OJ2ANSJVcvwh0EunYzzKBI6pQ4hQzgTE"
-                    
-                    # Define the input message
-                    input_dict = {
+                    MISTRAL_API_KEY = {params.MISTRAL_API_KEY}
+                # Define the input messages
+                    context_message = {
                         "role": "user",
-                        "content": {
-                            "context": ast.literal_eval(data),  # Convert the string to a Python object
-                            "query": "Human: " + query_input
-                        }
+                        "content": str(ast.literal_eval(data))  # Convert the context data to a string
                     }
-                    
-                    print("Input Dictionary:", input_dict)
-                    
+                    query_message = {
+                        "role": "user",
+                        "content": "Human: " + query_input
+                    }
+                    input_messages = [context_message, query_message]
+                    print("Input Messages:", input_messages)
                     # Send the request to the Mistral API
                     headers = {
                         'Authorization': f'Bearer {MISTRAL_API_KEY}',
@@ -73,16 +71,14 @@ def get_response(query_input, vectorStore, compression_retriever, cache, llm, mo
                     }
                     payload = {
                         'query': {
-                            'inputs': [input_dict],
+                            'inputs': input_messages,
                             'task': 'text-generation',
                             'model': 'open-mistral-7b',
                             'mode': 'default'
                         }
                     }
-                    print("Payload msg :", json.dumps(payload, indent=2))
-                    
+                    print("Payload:", json.dumps(payload, indent=2))
                     response_mistral = requests.post('https://api.mistral.ai/query', headers=headers, json=payload)
-                    
                     # Check if the request was successful
                     if response_mistral.status_code == 200:
                         response_data = response_mistral.json()
@@ -90,15 +86,13 @@ def get_response(query_input, vectorStore, compression_retriever, cache, llm, mo
                         st.write(f"Mistral Response: {response_text}")
                     else:
                         print(f'Error: {response_mistral.status_code} - {response_mistral.text}')
-                        
-                # Store the response in the cache
+                                    # Store the response in the cache
                 if model_choice == "OpenAI":
                     cache[combined_content] = response_llm
         else:
             st.write("No matching documents found.")
     else:
-        st.write("No matching documents found.")
-        
+        st.info('Retry Genrating Again', icon="🔃")
     if relevant_docs:
         try:
             # Convert the string to a Python dictionary
@@ -127,9 +121,9 @@ def get_response(query_input, vectorStore, compression_retriever, cache, llm, mo
             st.plotly_chart(fig_pie)
 
         except Exception as e:
-            st.write(f"Error: {e}")
+            st.info('We are currently Unable To Perfrom Visualization On this dataset', icon="ℹ️")
     else:
-        st.write("No matching documents found.")
+         st.info('Retry Genrating Again', icon="🔃")
 
 def main():
     st.set_page_config(page_title="CSV-EVA", page_icon="📊", layout="wide", initial_sidebar_state="collapsed")
@@ -186,7 +180,7 @@ def main():
                     )
 
         # Add a selectbox to choose the LLM model
-        model_choice = st.selectbox("Choose LLM Model", ["OpenAI", "Mistral"])
+        model_choice = st.selectbox("Choose LLM Model", ["OpenAI", "Mistral{Disable for now}"])
 
     # Main content
     with st.container():

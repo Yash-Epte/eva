@@ -152,7 +152,7 @@ def main():
             "pdf", "txt"], accept_multiple_files=True)
 
     embedding_option = st.sidebar.radio(
-        "Choose Embeddings", ["OpenAI Embeddings", "MistralAI"])
+        "Choose Embeddings", ["OpenAI Embeddings", "MistralAI {Current Disabled }"])
     
     retriever_type = "Similarity Search"
 
