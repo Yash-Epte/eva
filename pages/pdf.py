@@ -23,9 +23,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.callbacks.manager import CallbackManager
 
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
-
 
 if "shared" not in st.session_state:
    st.session_state["shared"] = True
