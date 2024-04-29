@@ -6,3 +6,9 @@ requests
 bs4
 openai
 tiktoken
+streamlit
+python-dotenv
+langchain
+faiss-cpu
+openai
+PyPDF2
