@@ -131,10 +131,10 @@ def main():
             #st.markdown('<div class="glassmorphism-box">', unsafe_allow_html=True)
             st.markdown('<div class="box-content">', unsafe_allow_html=True)
             st.markdown('<div class="title">Instructions for Chat With PDF</div>', unsafe_allow_html=True)
-            st.image("data/pdf.png", width=550)
+            st.image("pdf.png", width=550)
             st.markdown('<div class="content"> 1.This Projects Runs On Pdf Input and Genrate text as well as questions from that input given.<br>2.The project uses OpenAI LLM Model</div>', unsafe_allow_html=True)
             st.markdown('<div class="page-link">', unsafe_allow_html=True)
-            st.page_link("pdf.png", label="Chat With PDF", icon="📄")
+            st.page_link("pages/pdf.py", label="Chat With PDF", icon="📄")
             st.markdown('</div></div></div>', unsafe_allow_html=True)
 
     # Create the second glassmorphism box with a page link and image
@@ -143,10 +143,10 @@ def main():
            # st.markdown('<div class="glassmorphism-box">', unsafe_allow_html=True)
             st.markdown('<div class="box-content">', unsafe_allow_html=True)
             st.markdown('<div class="title">Instructions for Chat With CSV</div>', unsafe_allow_html=True)
-            st.image("data/csv.png", width=550)
+            st.image("csv.png", width=550)
             st.markdown('<div class="content">1.This Projects Runs On CSV Input and Genrate text as well as visualize the input.<br>2.The project uses OpenAI LLM Model</div>', unsafe_allow_html=True)
             st.markdown('<div class="page-link">', unsafe_allow_html=True)
-            st.page_link("csv.png", label="Chat With CSV", icon="📊")
+            st.page_link("pages/csv.py", label="Chat With CSV", icon="📊")
             st.markdown('</div></div></div>', unsafe_allow_html=True)
 
 if __name__ == "__main__": 
