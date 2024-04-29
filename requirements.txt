@@ -12,3 +12,9 @@ langchain
 faiss-cpu
 openai
 PyPDF2
+plotly
+langchain
+langchain-communtiy
+pymongo
+pandas
+sentence-transformers

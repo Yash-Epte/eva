@@ -9,9 +9,6 @@ from langchain.docstore.document import Document
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 import params
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
-import openai
 import requests
 from io import StringIO
 # Additional code
@@ -20,8 +17,6 @@ from langchain_openai import OpenAI
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
 import warnings
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from sentence_transformers import SentenceTransformer
 warnings.filterwarnings("ignore", category=UserWarning, module="langchain.chains.llm")
 import ast
 import ast
