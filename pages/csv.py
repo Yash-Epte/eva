@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 import json
 #from langchain.document_loaders import PyMuckedUnstructuredLoader
-from langchain_openai import OpenAIEmbeddings
+from langchain.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
 from pymongo import MongoClient
