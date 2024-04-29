@@ -7,7 +7,7 @@ from langchain.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
 from pymongo import MongoClient
-from langchain_mongodb import MongoDBAtlasVectorSearch
+from langchain.mongodb import MongoDBAtlasVectorSearch
 import params
 import requests
 from io import StringIO
