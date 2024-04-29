@@ -147,7 +147,7 @@ def main():
     # Sidebar
     with st.sidebar:
         container = st.container()
-        image = Image.open("/Users/yashepte/Desktop/mongo/female-robot-ai,-futuristic.png")
+        image = Image.open("female-robot-ai,-futuristic.png")
         with container:
             st.image(image, width=200)
         st.markdown("<h1 style='text-align: center'>EVA</h1>", unsafe_allow_html=True)

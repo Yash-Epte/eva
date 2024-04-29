@@ -140,7 +140,7 @@ def main():
     with st.sidebar:
         
         container = st.container()
-        image = Image.open("/Users/yashepte/Desktop/mongo/female-robot-ai,-futuristic.png")
+        image = Image.open("female-robot-ai,-futuristic.png")
         with container:
             st.image(image, width=200)
         st.markdown("<h1 style='text-align: center'>EVA</h1>", unsafe_allow_html=True)
@@ -203,14 +203,6 @@ def main():
                 callback_manager=callback_manager,
                 verbose=True,
                 temperature=0,
-            )
-        elif embedding_option == "MistralAI":
-            llm = MistralAI(
-                streaming=True,
-                callback_manager=callback_manager,
-                verbose=True,
-                temperature=0,
-                mistral_client=mistral_client,
             )
 
         qa = RetrievalQA.from_chain_type(
