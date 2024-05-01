@@ -4,22 +4,18 @@ import random
 import itertools
 from io import StringIO
 from PIL import Image
-
 import streamlit as st
 from dotenv import load_dotenv
 import params
+
 # NEED TO - pip install faiss-cpu to use FAISS
 from langchain.vectorstores import FAISS
 # NEED TO - pip install openai to use OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.retrievers import SVMRetriever
-
 from langchain.chains import RetrievalQA, QAGenerationChain
-
-from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
-
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.callbacks.manager import CallbackManager
 
@@ -180,17 +176,6 @@ def main():
         # Embed using OpenAI embeddings or MistralAI embeddings
         if embedding_option == "OpenAI Embeddings":
             embeddings = OpenAIEmbeddings()
-        elif embedding_option == "MistralAI":
-            # Initialize Mistral client
-            mistral_client = MistralClient(api_key=params.MISTRAL_API_KEY)
-            # Initialize Mistral sentence client
-            sentence_client = MistralSentenceClient(mistral_client)
-
-            # Generate embeddings using Mistral
-            embeddings = []
-            for chunk in splits:
-                embedding = sentence_client.embed(chunk)
-                embeddings.append(embedding)
 
         retriever = create_retriever(embeddings, splits, retriever_type)
 

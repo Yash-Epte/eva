@@ -2,17 +2,17 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 #from langchain.document_loaders import PyMuckedUnstructuredLoader
-from langchain_openai import OpenAIEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
 from pymongo import MongoClient
-from langchain_mongodb import MongoDBAtlasVectorSearch
+from langchain.vectorstores import MongoDBAtlasVectorSearch
 import params
 
 
 # Additional code
 import argparse
-from langchain_openai import OpenAI
+from langchain.llms import OpenAI
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
 import warnings
