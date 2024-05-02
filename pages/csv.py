@@ -9,7 +9,6 @@ from io import StringIO
 import argparse
 import warnings
 import ast
-import params
 import requests
 
 from langchain.embeddings import OpenAIEmbeddings
